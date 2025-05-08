@@ -15,6 +15,9 @@ gen-go:
 	@cmake --preset=release -DGEN_GO=ON
 	@cp -r $(GEN_PATH)/*  go/
 
+go-build:
+	@go build ./...
+
 mod:
 	@go mod tidy
 	@go mod download
