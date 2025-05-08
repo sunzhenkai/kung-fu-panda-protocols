@@ -202,6 +202,298 @@ func (x *RecordResponse) GetMessage() string {
 	return ""
 }
 
+type ReplayRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	Service       string                 `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
+	Option        *ReplayRequest_Option  `protobuf:"bytes,3,opt,name=option,proto3" json:"option,omitempty"`
+	Target        *ReplayRequest_Target  `protobuf:"bytes,100,opt,name=target,proto3" json:"target,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayRequest) Reset() {
+	*x = ReplayRequest{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayRequest) ProtoMessage() {}
+
+func (x *ReplayRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayRequest.ProtoReflect.Descriptor instead.
+func (*ReplayRequest) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ReplayRequest) GetRequestId() string {
+	if x != nil {
+		return x.RequestId
+	}
+	return ""
+}
+
+func (x *ReplayRequest) GetService() string {
+	if x != nil {
+		return x.Service
+	}
+	return ""
+}
+
+func (x *ReplayRequest) GetOption() *ReplayRequest_Option {
+	if x != nil {
+		return x.Option
+	}
+	return nil
+}
+
+func (x *ReplayRequest) GetTarget() *ReplayRequest_Target {
+	if x != nil {
+		return x.Target
+	}
+	return nil
+}
+
+type ReplayResponse struct {
+	state         protoimpl.MessageState            `protogen:"open.v1"`
+	Code          int32                             `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                            `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	SuccessCount  int32                             `protobuf:"varint,100,opt,name=success_count,json=successCount,proto3" json:"success_count,omitempty"`
+	FailedCount   int32                             `protobuf:"varint,101,opt,name=failed_count,json=failedCount,proto3" json:"failed_count,omitempty"`
+	Responses     []*ReplayResponse_ServiceResponse `protobuf:"bytes,102,rep,name=responses,proto3" json:"responses,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayResponse) Reset() {
+	*x = ReplayResponse{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayResponse) ProtoMessage() {}
+
+func (x *ReplayResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayResponse.ProtoReflect.Descriptor instead.
+func (*ReplayResponse) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ReplayResponse) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *ReplayResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *ReplayResponse) GetSuccessCount() int32 {
+	if x != nil {
+		return x.SuccessCount
+	}
+	return 0
+}
+
+func (x *ReplayResponse) GetFailedCount() int32 {
+	if x != nil {
+		return x.FailedCount
+	}
+	return 0
+}
+
+func (x *ReplayResponse) GetResponses() []*ReplayResponse_ServiceResponse {
+	if x != nil {
+		return x.Responses
+	}
+	return nil
+}
+
+type ReplayRequest_Target struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ip            string                 `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
+	Port          int32                  `protobuf:"varint,2,opt,name=port,proto3" json:"port,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayRequest_Target) Reset() {
+	*x = ReplayRequest_Target{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayRequest_Target) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayRequest_Target) ProtoMessage() {}
+
+func (x *ReplayRequest_Target) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayRequest_Target.ProtoReflect.Descriptor instead.
+func (*ReplayRequest_Target) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2, 0}
+}
+
+func (x *ReplayRequest_Target) GetIp() string {
+	if x != nil {
+		return x.Ip
+	}
+	return ""
+}
+
+func (x *ReplayRequest_Target) GetPort() int32 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+type ReplayRequest_Option struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Count         int32                  `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	TimeoutMs     int32                  `protobuf:"varint,2,opt,name=timeout_ms,json=timeoutMs,proto3" json:"timeout_ms,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayRequest_Option) Reset() {
+	*x = ReplayRequest_Option{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayRequest_Option) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayRequest_Option) ProtoMessage() {}
+
+func (x *ReplayRequest_Option) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayRequest_Option.ProtoReflect.Descriptor instead.
+func (*ReplayRequest_Option) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2, 1}
+}
+
+func (x *ReplayRequest_Option) GetCount() int32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+func (x *ReplayRequest_Option) GetTimeoutMs() int32 {
+	if x != nil {
+		return x.TimeoutMs
+	}
+	return 0
+}
+
+type ReplayResponse_ServiceResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Body          []byte                 `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayResponse_ServiceResponse) Reset() {
+	*x = ReplayResponse_ServiceResponse{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayResponse_ServiceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayResponse_ServiceResponse) ProtoMessage() {}
+
+func (x *ReplayResponse_ServiceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayResponse_ServiceResponse.ProtoReflect.Descriptor instead.
+func (*ReplayResponse_ServiceResponse) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3, 0}
+}
+
+func (x *ReplayResponse_ServiceResponse) GetBody() []byte {
+	if x != nil {
+		return x.Body
+	}
+	return nil
+}
+
 var File_protos_service_kfpanda_kfpanda_proto protoreflect.FileDescriptor
 
 const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
@@ -216,14 +508,36 @@ const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
 	"\x04data\x18f \x01(\fR\x04data\">\n" +
 	"\x0eRecordResponse\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage*U\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\xa3\x02\n" +
+	"\rReplayRequest\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\x12\x18\n" +
+	"\aservice\x18\x02 \x01(\tR\aservice\x125\n" +
+	"\x06option\x18\x03 \x01(\v2\x1d.kfpanda.ReplayRequest.OptionR\x06option\x125\n" +
+	"\x06target\x18d \x01(\v2\x1d.kfpanda.ReplayRequest.TargetR\x06target\x1a,\n" +
+	"\x06Target\x12\x0e\n" +
+	"\x02ip\x18\x01 \x01(\tR\x02ip\x12\x12\n" +
+	"\x04port\x18\x02 \x01(\x05R\x04port\x1a=\n" +
+	"\x06Option\x12\x14\n" +
+	"\x05count\x18\x01 \x01(\x05R\x05count\x12\x1d\n" +
+	"\n" +
+	"timeout_ms\x18\x02 \x01(\x05R\ttimeoutMs\"\xf4\x01\n" +
+	"\x0eReplayResponse\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12#\n" +
+	"\rsuccess_count\x18d \x01(\x05R\fsuccessCount\x12!\n" +
+	"\ffailed_count\x18e \x01(\x05R\vfailedCount\x12E\n" +
+	"\tresponses\x18f \x03(\v2'.kfpanda.ReplayResponse.ServiceResponseR\tresponses\x1a%\n" +
+	"\x0fServiceResponse\x12\x12\n" +
+	"\x04body\x18\x01 \x01(\fR\x04body*U\n" +
 	"\n" +
 	"RecordType\x12\x1b\n" +
 	"\x17RECORD_TYPE_UNSPECIFIED\x10\x00\x12\x14\n" +
 	"\x10RECORD_TYPE_HTTP\x10\x01\x12\x14\n" +
-	"\x10RECORD_TYPE_GRPC\x10\x022M\n" +
+	"\x10RECORD_TYPE_GRPC\x10\x022\x8a\x01\n" +
 	"\x0eKfPandaService\x12;\n" +
-	"\x06Record\x12\x16.kfpanda.RecordRequest\x1a\x17.kfpanda.RecordResponse\"\x00BMZHgithub.com/sunzhenkai/kung-fu-panda-protocols/go/service/kfpanda;kfpanda\x80\x01\x01b\x06proto3"
+	"\x06Record\x12\x16.kfpanda.RecordRequest\x1a\x17.kfpanda.RecordResponse\"\x00\x12;\n" +
+	"\x06Replay\x12\x16.kfpanda.ReplayRequest\x1a\x17.kfpanda.ReplayResponse\"\x00BMZHgithub.com/sunzhenkai/kung-fu-panda-protocols/go/service/kfpanda;kfpanda\x80\x01\x01b\x06proto3"
 
 var (
 	file_protos_service_kfpanda_kfpanda_proto_rawDescOnce sync.Once
@@ -238,21 +552,31 @@ func file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_service_kfpanda_kfpanda_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_protos_service_kfpanda_kfpanda_proto_goTypes = []any{
-	(RecordType)(0),        // 0: kfpanda.RecordType
-	(*RecordRequest)(nil),  // 1: kfpanda.RecordRequest
-	(*RecordResponse)(nil), // 2: kfpanda.RecordResponse
+	(RecordType)(0),                        // 0: kfpanda.RecordType
+	(*RecordRequest)(nil),                  // 1: kfpanda.RecordRequest
+	(*RecordResponse)(nil),                 // 2: kfpanda.RecordResponse
+	(*ReplayRequest)(nil),                  // 3: kfpanda.ReplayRequest
+	(*ReplayResponse)(nil),                 // 4: kfpanda.ReplayResponse
+	(*ReplayRequest_Target)(nil),           // 5: kfpanda.ReplayRequest.Target
+	(*ReplayRequest_Option)(nil),           // 6: kfpanda.ReplayRequest.Option
+	(*ReplayResponse_ServiceResponse)(nil), // 7: kfpanda.ReplayResponse.ServiceResponse
 }
 var file_protos_service_kfpanda_kfpanda_proto_depIdxs = []int32{
 	0, // 0: kfpanda.RecordRequest.type:type_name -> kfpanda.RecordType
-	1, // 1: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
-	2, // 2: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 1: kfpanda.ReplayRequest.option:type_name -> kfpanda.ReplayRequest.Option
+	5, // 2: kfpanda.ReplayRequest.target:type_name -> kfpanda.ReplayRequest.Target
+	7, // 3: kfpanda.ReplayResponse.responses:type_name -> kfpanda.ReplayResponse.ServiceResponse
+	1, // 4: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
+	3, // 5: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
+	2, // 6: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
+	4, // 7: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_protos_service_kfpanda_kfpanda_proto_init() }
@@ -266,7 +590,7 @@ func file_protos_service_kfpanda_kfpanda_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_service_kfpanda_kfpanda_proto_rawDesc), len(file_protos_service_kfpanda_kfpanda_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   2,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
