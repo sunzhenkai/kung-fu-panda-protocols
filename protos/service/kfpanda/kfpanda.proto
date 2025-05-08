@@ -62,3 +62,11 @@ service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
 }
+
+message HttpRequest {}
+message HttpResponse {}
+
+service HttpKfPandaService {
+  rpc Echo(HttpRequest) returns (HttpResponse) {}
+  rpc Replay(HttpRequest) returns (HttpResponse) {}
+}
