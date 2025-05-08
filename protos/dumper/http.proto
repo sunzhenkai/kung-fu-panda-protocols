@@ -13,7 +13,6 @@ message URI {
 }
 
 message HttpRequest {
-  string service = 1;
   URI uri = 100;
   bytes body = 150;
 }

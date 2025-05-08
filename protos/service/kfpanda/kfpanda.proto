@@ -1,0 +1,32 @@
+syntax = "proto3";
+package kfpanda;
+
+option cc_generic_services = true;
+option go_package = "github.com/sunzhenkai/kung-fu-panda-protocols/go/service/kfpanda;kfpanda";
+
+enum RecordType {
+  RECORD_TYPE_UNSPECIFIED = 0;
+  RECORD_TYPE_HTTP = 1;
+  RECORD_TYPE_GRPC = 2;
+}
+
+message RecordRequest {
+  string request_id = 1;
+  // reqeust timestamp in millisecond
+  // default: current timestamp if not set
+  int64 timestamp_ms = 2; 
+
+  string service = 100;
+  bytes data = 101;
+}
+
+message RecordResponse {
+  // code: indicte the processing result
+  // 0: ok, failed otherwise
+  int32 code = 1; 
+  string message = 2;
+}
+
+service KfPandaService {
+  rpc Record(RecordRequest) returns (RecordResponse) {}
+}
