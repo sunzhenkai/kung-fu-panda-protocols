@@ -20,6 +20,8 @@ include(3rd/vcpkg-base/cmakes/tools.cmake)
 include(3rd/vcpkg-base/cmakes/protobufv2.cmake)
 file(GLOB_RECURSE PB_SOURCE_FILES "protos/*.proto")
 
+execute_process(COMMAND git submodule update --init)
+
 generate_protobuf_message(
   SRCS
   PB_SRCS
