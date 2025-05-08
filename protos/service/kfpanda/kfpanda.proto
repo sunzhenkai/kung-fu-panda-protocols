@@ -17,7 +17,8 @@ message RecordRequest {
   int64 timestamp_ms = 2; 
 
   string service = 100;
-  bytes data = 101;
+  RecordType type = 101;
+  bytes data = 102;
 }
 
 message RecordResponse {
