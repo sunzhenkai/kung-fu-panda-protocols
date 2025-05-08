@@ -41,6 +41,10 @@ if(GEN_GO)
     ${PROJECT_SOURCE_DIR}/
     FILES
     ${PB_SOURCE_FILES}
+    GO_GEN_VERSION
+    v1.28.1
+    GO_GEN_GRPC_VERSION
+    v1.3.0
     GO_OPT_MODULE
     "github.com/sunzhenkai/kung-fu-panda-protocols/go")
 endif()
