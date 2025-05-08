@@ -14,7 +14,7 @@ message RecordRequest {
   string request_id = 1;
   // reqeust timestamp in millisecond
   // default: current timestamp if not set
-  int64 timestamp_ms = 2; 
+  int64 timestamp_ms = 2;
 
   string service = 100;
   RecordType type = 101;
@@ -24,10 +24,41 @@ message RecordRequest {
 message RecordResponse {
   // code: indicte the processing result
   // 0: ok, failed otherwise
-  int32 code = 1; 
+  int32 code = 1;
   string message = 2;
+}
+
+message ReplayRequest {
+  message Target {
+    string ip = 1;
+    int32 port = 2;
+  }
+
+  message Option {
+    int32 count = 1;
+    int32 timeout_ms = 2;
+  }
+
+  string request_id = 1;
+  string service = 2;
+  Option option = 3;
+  Target target = 100;
+}
+
+message ReplayResponse {
+  message ServiceResponse {
+    bytes body = 1;
+  }
+
+  int32 code = 1;
+  string message = 2;
+
+  int32 success_count = 100;
+  int32 failed_count = 101;
+  repeated ServiceResponse responses = 102;
 }
 
 service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
+  rpc Replay(ReplayRequest) returns (ReplayResponse) {}
 }

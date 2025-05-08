@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	KfPandaService_Record_FullMethodName = "/kfpanda.KfPandaService/Record"
+	KfPandaService_Replay_FullMethodName = "/kfpanda.KfPandaService/Replay"
 )
 
 // KfPandaServiceClient is the client API for KfPandaService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type KfPandaServiceClient interface {
 	Record(ctx context.Context, in *RecordRequest, opts ...grpc.CallOption) (*RecordResponse, error)
+	Replay(ctx context.Context, in *ReplayRequest, opts ...grpc.CallOption) (*ReplayResponse, error)
 }
 
 type kfPandaServiceClient struct {
@@ -46,11 +48,21 @@ func (c *kfPandaServiceClient) Record(ctx context.Context, in *RecordRequest, op
 	return out, nil
 }
 
+func (c *kfPandaServiceClient) Replay(ctx context.Context, in *ReplayRequest, opts ...grpc.CallOption) (*ReplayResponse, error) {
+	out := new(ReplayResponse)
+	err := c.cc.Invoke(ctx, KfPandaService_Replay_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KfPandaServiceServer is the server API for KfPandaService service.
 // All implementations must embed UnimplementedKfPandaServiceServer
 // for forward compatibility
 type KfPandaServiceServer interface {
 	Record(context.Context, *RecordRequest) (*RecordResponse, error)
+	Replay(context.Context, *ReplayRequest) (*ReplayResponse, error)
 	mustEmbedUnimplementedKfPandaServiceServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedKfPandaServiceServer struct {
 
 func (UnimplementedKfPandaServiceServer) Record(context.Context, *RecordRequest) (*RecordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Record not implemented")
+}
+func (UnimplementedKfPandaServiceServer) Replay(context.Context, *ReplayRequest) (*ReplayResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Replay not implemented")
 }
 func (UnimplementedKfPandaServiceServer) mustEmbedUnimplementedKfPandaServiceServer() {}
 
@@ -92,6 +107,24 @@ func _KfPandaService_Record_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KfPandaService_Replay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReplayRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaServiceServer).Replay(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaService_Replay_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaServiceServer).Replay(ctx, req.(*ReplayRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KfPandaService_ServiceDesc is the grpc.ServiceDesc for KfPandaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var KfPandaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Record",
 			Handler:    _KfPandaService_Record_Handler,
+		},
+		{
+			MethodName: "Replay",
+			Handler:    _KfPandaService_Replay_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
