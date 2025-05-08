@@ -1,0 +1,19 @@
+syntax = "proto3";
+package dumper;
+
+option go_package = "github.com/sunzhenkai/kung-fu-panda-protocols/go/dumper;dumper";
+
+message URI {
+  string full = 1;
+  string schema = 100;
+  string host = 101;
+  int32 port = 102;
+  string path = 103;
+  string query = 104;
+}
+
+message HttpRequest {
+  string service = 1;
+  URI uri = 100;
+  bytes body = 150;
+}
