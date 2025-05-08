@@ -75,9 +75,10 @@ type RecordRequest struct {
 	RequestId string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	// reqeust timestamp in millisecond
 	// default: current timestamp if not set
-	TimestampMs   int64  `protobuf:"varint,2,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
-	Service       string `protobuf:"bytes,100,opt,name=service,proto3" json:"service,omitempty"`
-	Data          []byte `protobuf:"bytes,101,opt,name=data,proto3" json:"data,omitempty"`
+	TimestampMs   int64      `protobuf:"varint,2,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
+	Service       string     `protobuf:"bytes,100,opt,name=service,proto3" json:"service,omitempty"`
+	Type          RecordType `protobuf:"varint,101,opt,name=type,proto3,enum=kfpanda.RecordType" json:"type,omitempty"`
+	Data          []byte     `protobuf:"bytes,102,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -131,6 +132,13 @@ func (x *RecordRequest) GetService() string {
 		return x.Service
 	}
 	return ""
+}
+
+func (x *RecordRequest) GetType() RecordType {
+	if x != nil {
+		return x.Type
+	}
+	return RecordType_RECORD_TYPE_UNSPECIFIED
 }
 
 func (x *RecordRequest) GetData() []byte {
@@ -198,13 +206,14 @@ var File_protos_service_kfpanda_kfpanda_proto protoreflect.FileDescriptor
 
 const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
 	"\n" +
-	"$protos/service/kfpanda/kfpanda.proto\x12\akfpanda\"\x7f\n" +
+	"$protos/service/kfpanda/kfpanda.proto\x12\akfpanda\"\xa8\x01\n" +
 	"\rRecordRequest\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x01 \x01(\tR\trequestId\x12!\n" +
 	"\ftimestamp_ms\x18\x02 \x01(\x03R\vtimestampMs\x12\x18\n" +
-	"\aservice\x18d \x01(\tR\aservice\x12\x12\n" +
-	"\x04data\x18e \x01(\fR\x04data\">\n" +
+	"\aservice\x18d \x01(\tR\aservice\x12'\n" +
+	"\x04type\x18e \x01(\x0e2\x13.kfpanda.RecordTypeR\x04type\x12\x12\n" +
+	"\x04data\x18f \x01(\fR\x04data\">\n" +
 	"\x0eRecordResponse\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage*U\n" +
@@ -236,13 +245,14 @@ var file_protos_service_kfpanda_kfpanda_proto_goTypes = []any{
 	(*RecordResponse)(nil), // 2: kfpanda.RecordResponse
 }
 var file_protos_service_kfpanda_kfpanda_proto_depIdxs = []int32{
-	1, // 0: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
-	2, // 1: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: kfpanda.RecordRequest.type:type_name -> kfpanda.RecordType
+	1, // 1: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
+	2, // 2: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
+	2, // [2:3] is the sub-list for method output_type
+	1, // [1:2] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_protos_service_kfpanda_kfpanda_proto_init() }
