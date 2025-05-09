@@ -10,11 +10,21 @@ enum RecordType {
   RECORD_TYPE_GRPC = 2;
 }
 
+message URI {
+  string full = 1;
+  string schema = 100;
+  string host = 101;
+  int32 port = 102;
+  string path = 103;
+  string query = 104;
+}
+
 message RecordRequest {
   string request_id = 1;
   // reqeust timestamp in millisecond
   // default: current timestamp if not set
   int64 timestamp_ms = 2;
+  RUI uri = 3;
 
   string service = 100;
   RecordType type = 101;
