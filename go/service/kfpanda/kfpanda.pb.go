@@ -620,10 +620,11 @@ const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
 	"\x10RECORD_TYPE_GRPC\x10\x022\x8a\x01\n" +
 	"\x0eKfPandaService\x12;\n" +
 	"\x06Record\x12\x16.kfpanda.RecordRequest\x1a\x17.kfpanda.RecordResponse\"\x00\x12;\n" +
-	"\x06Replay\x12\x16.kfpanda.ReplayRequest\x1a\x17.kfpanda.ReplayResponse\"\x002\x84\x01\n" +
+	"\x06Replay\x12\x16.kfpanda.ReplayRequest\x1a\x17.kfpanda.ReplayResponse\"\x002\xba\x01\n" +
 	"\x12HttpKfPandaService\x125\n" +
 	"\x04Echo\x12\x14.kfpanda.HttpRequest\x1a\x15.kfpanda.HttpResponse\"\x00\x127\n" +
-	"\x06Replay\x12\x14.kfpanda.HttpRequest\x1a\x15.kfpanda.HttpResponse\"\x00BMZHgithub.com/sunzhenkai/kung-fu-panda-protocols/go/service/kfpanda;kfpanda\x80\x01\x01b\x06proto3"
+	"\x06Replay\x12\x14.kfpanda.HttpRequest\x1a\x15.kfpanda.HttpResponse\"\x00\x124\n" +
+	"\x03Api\x12\x14.kfpanda.HttpRequest\x1a\x15.kfpanda.HttpResponse\"\x00BMZHgithub.com/sunzhenkai/kung-fu-panda-protocols/go/service/kfpanda;kfpanda\x80\x01\x01b\x06proto3"
 
 var (
 	file_protos_service_kfpanda_kfpanda_proto_rawDescOnce sync.Once
@@ -660,12 +661,14 @@ var file_protos_service_kfpanda_kfpanda_proto_depIdxs = []int32{
 	3, // 5: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
 	5, // 6: kfpanda.HttpKfPandaService.Echo:input_type -> kfpanda.HttpRequest
 	5, // 7: kfpanda.HttpKfPandaService.Replay:input_type -> kfpanda.HttpRequest
-	2, // 8: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
-	4, // 9: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
-	6, // 10: kfpanda.HttpKfPandaService.Echo:output_type -> kfpanda.HttpResponse
-	6, // 11: kfpanda.HttpKfPandaService.Replay:output_type -> kfpanda.HttpResponse
-	8, // [8:12] is the sub-list for method output_type
-	4, // [4:8] is the sub-list for method input_type
+	5, // 8: kfpanda.HttpKfPandaService.Api:input_type -> kfpanda.HttpRequest
+	2, // 9: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
+	4, // 10: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
+	6, // 11: kfpanda.HttpKfPandaService.Echo:output_type -> kfpanda.HttpResponse
+	6, // 12: kfpanda.HttpKfPandaService.Replay:output_type -> kfpanda.HttpResponse
+	6, // 13: kfpanda.HttpKfPandaService.Api:output_type -> kfpanda.HttpResponse
+	9, // [9:14] is the sub-list for method output_type
+	4, // [4:9] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name
 	4, // [4:4] is the sub-list for extension extendee
 	0, // [0:4] is the sub-list for field type_name

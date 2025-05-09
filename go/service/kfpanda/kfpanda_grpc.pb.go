@@ -161,6 +161,7 @@ var KfPandaService_ServiceDesc = grpc.ServiceDesc{
 const (
 	HttpKfPandaService_Echo_FullMethodName   = "/kfpanda.HttpKfPandaService/Echo"
 	HttpKfPandaService_Replay_FullMethodName = "/kfpanda.HttpKfPandaService/Replay"
+	HttpKfPandaService_Api_FullMethodName    = "/kfpanda.HttpKfPandaService/Api"
 )
 
 // HttpKfPandaServiceClient is the client API for HttpKfPandaService service.
@@ -169,6 +170,7 @@ const (
 type HttpKfPandaServiceClient interface {
 	Echo(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
 	Replay(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
+	Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
 }
 
 type httpKfPandaServiceClient struct {
@@ -199,12 +201,23 @@ func (c *httpKfPandaServiceClient) Replay(ctx context.Context, in *HttpRequest, 
 	return out, nil
 }
 
+func (c *httpKfPandaServiceClient) Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HttpResponse)
+	err := c.cc.Invoke(ctx, HttpKfPandaService_Api_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // HttpKfPandaServiceServer is the server API for HttpKfPandaService service.
 // All implementations must embed UnimplementedHttpKfPandaServiceServer
 // for forward compatibility.
 type HttpKfPandaServiceServer interface {
 	Echo(context.Context, *HttpRequest) (*HttpResponse, error)
 	Replay(context.Context, *HttpRequest) (*HttpResponse, error)
+	Api(context.Context, *HttpRequest) (*HttpResponse, error)
 	mustEmbedUnimplementedHttpKfPandaServiceServer()
 }
 
@@ -220,6 +233,9 @@ func (UnimplementedHttpKfPandaServiceServer) Echo(context.Context, *HttpRequest)
 }
 func (UnimplementedHttpKfPandaServiceServer) Replay(context.Context, *HttpRequest) (*HttpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Replay not implemented")
+}
+func (UnimplementedHttpKfPandaServiceServer) Api(context.Context, *HttpRequest) (*HttpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Api not implemented")
 }
 func (UnimplementedHttpKfPandaServiceServer) mustEmbedUnimplementedHttpKfPandaServiceServer() {}
 func (UnimplementedHttpKfPandaServiceServer) testEmbeddedByValue()                            {}
@@ -278,6 +294,24 @@ func _HttpKfPandaService_Replay_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _HttpKfPandaService_Api_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HttpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HttpKfPandaServiceServer).Api(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: HttpKfPandaService_Api_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HttpKfPandaServiceServer).Api(ctx, req.(*HttpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // HttpKfPandaService_ServiceDesc is the grpc.ServiceDesc for HttpKfPandaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -292,6 +326,10 @@ var HttpKfPandaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Replay",
 			Handler:    _HttpKfPandaService_Replay_Handler,
+		},
+		{
+			MethodName: "Api",
+			Handler:    _HttpKfPandaService_Api_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

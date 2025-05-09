@@ -70,4 +70,5 @@ message HttpResponse {}
 service HttpKfPandaService {
   rpc Echo(HttpRequest) returns (HttpResponse) {}
   rpc Replay(HttpRequest) returns (HttpResponse) {}
+  rpc Api(HttpRequest) returns (HttpResponse) {}
 }
