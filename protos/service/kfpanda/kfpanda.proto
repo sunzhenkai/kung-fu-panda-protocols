@@ -39,11 +39,6 @@ message RecordResponse {
 }
 
 message ReplayRequest {
-  message Target {
-    string ip = 1;
-    int32 port = 2;
-  }
-
   message Option {
     int32 count = 1;
     int32 timeout_ms = 2;
@@ -52,7 +47,7 @@ message ReplayRequest {
   string request_id = 1;
   string service = 2;
   Option option = 3;
-  Target target = 100;
+  URI target = 100;
 }
 
 message ReplayResponse {
