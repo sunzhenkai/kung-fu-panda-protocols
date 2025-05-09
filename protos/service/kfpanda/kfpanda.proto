@@ -47,7 +47,7 @@ message ReplayRequest {
 
 message ReplayResponse {
   message ServiceResponse {
-    bytes body = 1;
+    string body = 1;
   }
 
   int32 code = 1;
