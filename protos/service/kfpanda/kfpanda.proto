@@ -24,7 +24,7 @@ message RecordRequest {
   // reqeust timestamp in millisecond
   // default: current timestamp if not set
   int64 timestamp_ms = 2;
-  RUI uri = 3;
+  URI uri = 3;
 
   string service = 100;
   RecordType type = 101;

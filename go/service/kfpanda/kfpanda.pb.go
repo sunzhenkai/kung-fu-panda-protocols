@@ -70,12 +70,97 @@ func (RecordType) EnumDescriptor() ([]byte, []int) {
 	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{0}
 }
 
+type URI struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Full          string                 `protobuf:"bytes,1,opt,name=full,proto3" json:"full,omitempty"`
+	Schema        string                 `protobuf:"bytes,100,opt,name=schema,proto3" json:"schema,omitempty"`
+	Host          string                 `protobuf:"bytes,101,opt,name=host,proto3" json:"host,omitempty"`
+	Port          int32                  `protobuf:"varint,102,opt,name=port,proto3" json:"port,omitempty"`
+	Path          string                 `protobuf:"bytes,103,opt,name=path,proto3" json:"path,omitempty"`
+	Query         string                 `protobuf:"bytes,104,opt,name=query,proto3" json:"query,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *URI) Reset() {
+	*x = URI{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *URI) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*URI) ProtoMessage() {}
+
+func (x *URI) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use URI.ProtoReflect.Descriptor instead.
+func (*URI) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *URI) GetFull() string {
+	if x != nil {
+		return x.Full
+	}
+	return ""
+}
+
+func (x *URI) GetSchema() string {
+	if x != nil {
+		return x.Schema
+	}
+	return ""
+}
+
+func (x *URI) GetHost() string {
+	if x != nil {
+		return x.Host
+	}
+	return ""
+}
+
+func (x *URI) GetPort() int32 {
+	if x != nil {
+		return x.Port
+	}
+	return 0
+}
+
+func (x *URI) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *URI) GetQuery() string {
+	if x != nil {
+		return x.Query
+	}
+	return ""
+}
+
 type RecordRequest struct {
 	state     protoimpl.MessageState `protogen:"open.v1"`
 	RequestId string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	// reqeust timestamp in millisecond
 	// default: current timestamp if not set
 	TimestampMs   int64      `protobuf:"varint,2,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
+	Uri           *URI       `protobuf:"bytes,3,opt,name=uri,proto3" json:"uri,omitempty"`
 	Service       string     `protobuf:"bytes,100,opt,name=service,proto3" json:"service,omitempty"`
 	Type          RecordType `protobuf:"varint,101,opt,name=type,proto3,enum=kfpanda.RecordType" json:"type,omitempty"`
 	Data          []byte     `protobuf:"bytes,102,opt,name=data,proto3" json:"data,omitempty"`
@@ -85,7 +170,7 @@ type RecordRequest struct {
 
 func (x *RecordRequest) Reset() {
 	*x = RecordRequest{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[0]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -97,7 +182,7 @@ func (x *RecordRequest) String() string {
 func (*RecordRequest) ProtoMessage() {}
 
 func (x *RecordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[0]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -110,7 +195,7 @@ func (x *RecordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordRequest.ProtoReflect.Descriptor instead.
 func (*RecordRequest) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{0}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *RecordRequest) GetRequestId() string {
@@ -125,6 +210,13 @@ func (x *RecordRequest) GetTimestampMs() int64 {
 		return x.TimestampMs
 	}
 	return 0
+}
+
+func (x *RecordRequest) GetUri() *URI {
+	if x != nil {
+		return x.Uri
+	}
+	return nil
 }
 
 func (x *RecordRequest) GetService() string {
@@ -160,7 +252,7 @@ type RecordResponse struct {
 
 func (x *RecordResponse) Reset() {
 	*x = RecordResponse{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[1]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -172,7 +264,7 @@ func (x *RecordResponse) String() string {
 func (*RecordResponse) ProtoMessage() {}
 
 func (x *RecordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[1]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -185,7 +277,7 @@ func (x *RecordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordResponse.ProtoReflect.Descriptor instead.
 func (*RecordResponse) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{1}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RecordResponse) GetCode() int32 {
@@ -214,7 +306,7 @@ type ReplayRequest struct {
 
 func (x *ReplayRequest) Reset() {
 	*x = ReplayRequest{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -226,7 +318,7 @@ func (x *ReplayRequest) String() string {
 func (*ReplayRequest) ProtoMessage() {}
 
 func (x *ReplayRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[2]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -239,7 +331,7 @@ func (x *ReplayRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplayRequest.ProtoReflect.Descriptor instead.
 func (*ReplayRequest) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ReplayRequest) GetRequestId() string {
@@ -283,7 +375,7 @@ type ReplayResponse struct {
 
 func (x *ReplayResponse) Reset() {
 	*x = ReplayResponse{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -295,7 +387,7 @@ func (x *ReplayResponse) String() string {
 func (*ReplayResponse) ProtoMessage() {}
 
 func (x *ReplayResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[3]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -308,7 +400,7 @@ func (x *ReplayResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplayResponse.ProtoReflect.Descriptor instead.
 func (*ReplayResponse) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ReplayResponse) GetCode() int32 {
@@ -354,7 +446,7 @@ type HttpRequest struct {
 
 func (x *HttpRequest) Reset() {
 	*x = HttpRequest{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -366,7 +458,7 @@ func (x *HttpRequest) String() string {
 func (*HttpRequest) ProtoMessage() {}
 
 func (x *HttpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[4]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -379,7 +471,7 @@ func (x *HttpRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HttpRequest.ProtoReflect.Descriptor instead.
 func (*HttpRequest) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{4}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{5}
 }
 
 type HttpResponse struct {
@@ -390,7 +482,7 @@ type HttpResponse struct {
 
 func (x *HttpResponse) Reset() {
 	*x = HttpResponse{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -402,7 +494,7 @@ func (x *HttpResponse) String() string {
 func (*HttpResponse) ProtoMessage() {}
 
 func (x *HttpResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[5]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -415,7 +507,7 @@ func (x *HttpResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HttpResponse.ProtoReflect.Descriptor instead.
 func (*HttpResponse) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{5}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{6}
 }
 
 type ReplayRequest_Target struct {
@@ -428,7 +520,7 @@ type ReplayRequest_Target struct {
 
 func (x *ReplayRequest_Target) Reset() {
 	*x = ReplayRequest_Target{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -440,7 +532,7 @@ func (x *ReplayRequest_Target) String() string {
 func (*ReplayRequest_Target) ProtoMessage() {}
 
 func (x *ReplayRequest_Target) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[6]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -453,7 +545,7 @@ func (x *ReplayRequest_Target) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplayRequest_Target.ProtoReflect.Descriptor instead.
 func (*ReplayRequest_Target) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2, 0}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3, 0}
 }
 
 func (x *ReplayRequest_Target) GetIp() string {
@@ -480,7 +572,7 @@ type ReplayRequest_Option struct {
 
 func (x *ReplayRequest_Option) Reset() {
 	*x = ReplayRequest_Option{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[7]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -492,7 +584,7 @@ func (x *ReplayRequest_Option) String() string {
 func (*ReplayRequest_Option) ProtoMessage() {}
 
 func (x *ReplayRequest_Option) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[7]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -505,7 +597,7 @@ func (x *ReplayRequest_Option) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplayRequest_Option.ProtoReflect.Descriptor instead.
 func (*ReplayRequest_Option) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{2, 1}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3, 1}
 }
 
 func (x *ReplayRequest_Option) GetCount() int32 {
@@ -532,7 +624,7 @@ type ReplayResponse_ServiceResponse struct {
 
 func (x *ReplayResponse_ServiceResponse) Reset() {
 	*x = ReplayResponse_ServiceResponse{}
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[8]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -544,7 +636,7 @@ func (x *ReplayResponse_ServiceResponse) String() string {
 func (*ReplayResponse_ServiceResponse) ProtoMessage() {}
 
 func (x *ReplayResponse_ServiceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[8]
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -557,7 +649,7 @@ func (x *ReplayResponse_ServiceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReplayResponse_ServiceResponse.ProtoReflect.Descriptor instead.
 func (*ReplayResponse_ServiceResponse) Descriptor() ([]byte, []int) {
-	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{3, 0}
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{4, 0}
 }
 
 func (x *ReplayResponse_ServiceResponse) GetBody() []byte {
@@ -578,11 +670,19 @@ var File_protos_service_kfpanda_kfpanda_proto protoreflect.FileDescriptor
 
 const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
 	"\n" +
-	"$protos/service/kfpanda/kfpanda.proto\x12\akfpanda\"\xa8\x01\n" +
+	"$protos/service/kfpanda/kfpanda.proto\x12\akfpanda\"\x83\x01\n" +
+	"\x03URI\x12\x12\n" +
+	"\x04full\x18\x01 \x01(\tR\x04full\x12\x16\n" +
+	"\x06schema\x18d \x01(\tR\x06schema\x12\x12\n" +
+	"\x04host\x18e \x01(\tR\x04host\x12\x12\n" +
+	"\x04port\x18f \x01(\x05R\x04port\x12\x12\n" +
+	"\x04path\x18g \x01(\tR\x04path\x12\x14\n" +
+	"\x05query\x18h \x01(\tR\x05query\"\xc8\x01\n" +
 	"\rRecordRequest\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x01 \x01(\tR\trequestId\x12!\n" +
-	"\ftimestamp_ms\x18\x02 \x01(\x03R\vtimestampMs\x12\x18\n" +
+	"\ftimestamp_ms\x18\x02 \x01(\x03R\vtimestampMs\x12\x1e\n" +
+	"\x03uri\x18\x03 \x01(\v2\f.kfpanda.URIR\x03uri\x12\x18\n" +
 	"\aservice\x18d \x01(\tR\aservice\x12'\n" +
 	"\x04type\x18e \x01(\x0e2\x13.kfpanda.RecordTypeR\x04type\x12\x12\n" +
 	"\x04data\x18f \x01(\fR\x04data\">\n" +
@@ -639,39 +739,41 @@ func file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_service_kfpanda_kfpanda_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_protos_service_kfpanda_kfpanda_proto_goTypes = []any{
 	(RecordType)(0),                        // 0: kfpanda.RecordType
-	(*RecordRequest)(nil),                  // 1: kfpanda.RecordRequest
-	(*RecordResponse)(nil),                 // 2: kfpanda.RecordResponse
-	(*ReplayRequest)(nil),                  // 3: kfpanda.ReplayRequest
-	(*ReplayResponse)(nil),                 // 4: kfpanda.ReplayResponse
-	(*HttpRequest)(nil),                    // 5: kfpanda.HttpRequest
-	(*HttpResponse)(nil),                   // 6: kfpanda.HttpResponse
-	(*ReplayRequest_Target)(nil),           // 7: kfpanda.ReplayRequest.Target
-	(*ReplayRequest_Option)(nil),           // 8: kfpanda.ReplayRequest.Option
-	(*ReplayResponse_ServiceResponse)(nil), // 9: kfpanda.ReplayResponse.ServiceResponse
+	(*URI)(nil),                            // 1: kfpanda.URI
+	(*RecordRequest)(nil),                  // 2: kfpanda.RecordRequest
+	(*RecordResponse)(nil),                 // 3: kfpanda.RecordResponse
+	(*ReplayRequest)(nil),                  // 4: kfpanda.ReplayRequest
+	(*ReplayResponse)(nil),                 // 5: kfpanda.ReplayResponse
+	(*HttpRequest)(nil),                    // 6: kfpanda.HttpRequest
+	(*HttpResponse)(nil),                   // 7: kfpanda.HttpResponse
+	(*ReplayRequest_Target)(nil),           // 8: kfpanda.ReplayRequest.Target
+	(*ReplayRequest_Option)(nil),           // 9: kfpanda.ReplayRequest.Option
+	(*ReplayResponse_ServiceResponse)(nil), // 10: kfpanda.ReplayResponse.ServiceResponse
 }
 var file_protos_service_kfpanda_kfpanda_proto_depIdxs = []int32{
-	0, // 0: kfpanda.RecordRequest.type:type_name -> kfpanda.RecordType
-	8, // 1: kfpanda.ReplayRequest.option:type_name -> kfpanda.ReplayRequest.Option
-	7, // 2: kfpanda.ReplayRequest.target:type_name -> kfpanda.ReplayRequest.Target
-	9, // 3: kfpanda.ReplayResponse.responses:type_name -> kfpanda.ReplayResponse.ServiceResponse
-	1, // 4: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
-	3, // 5: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
-	5, // 6: kfpanda.HttpKfPandaService.Echo:input_type -> kfpanda.HttpRequest
-	5, // 7: kfpanda.HttpKfPandaService.Replay:input_type -> kfpanda.HttpRequest
-	5, // 8: kfpanda.HttpKfPandaService.Api:input_type -> kfpanda.HttpRequest
-	2, // 9: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
-	4, // 10: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
-	6, // 11: kfpanda.HttpKfPandaService.Echo:output_type -> kfpanda.HttpResponse
-	6, // 12: kfpanda.HttpKfPandaService.Replay:output_type -> kfpanda.HttpResponse
-	6, // 13: kfpanda.HttpKfPandaService.Api:output_type -> kfpanda.HttpResponse
-	9, // [9:14] is the sub-list for method output_type
-	4, // [4:9] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	1,  // 0: kfpanda.RecordRequest.uri:type_name -> kfpanda.URI
+	0,  // 1: kfpanda.RecordRequest.type:type_name -> kfpanda.RecordType
+	9,  // 2: kfpanda.ReplayRequest.option:type_name -> kfpanda.ReplayRequest.Option
+	8,  // 3: kfpanda.ReplayRequest.target:type_name -> kfpanda.ReplayRequest.Target
+	10, // 4: kfpanda.ReplayResponse.responses:type_name -> kfpanda.ReplayResponse.ServiceResponse
+	2,  // 5: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
+	4,  // 6: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
+	6,  // 7: kfpanda.HttpKfPandaService.Echo:input_type -> kfpanda.HttpRequest
+	6,  // 8: kfpanda.HttpKfPandaService.Replay:input_type -> kfpanda.HttpRequest
+	6,  // 9: kfpanda.HttpKfPandaService.Api:input_type -> kfpanda.HttpRequest
+	3,  // 10: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
+	5,  // 11: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
+	7,  // 12: kfpanda.HttpKfPandaService.Echo:output_type -> kfpanda.HttpResponse
+	7,  // 13: kfpanda.HttpKfPandaService.Replay:output_type -> kfpanda.HttpResponse
+	7,  // 14: kfpanda.HttpKfPandaService.Api:output_type -> kfpanda.HttpResponse
+	10, // [10:15] is the sub-list for method output_type
+	5,  // [5:10] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_protos_service_kfpanda_kfpanda_proto_init() }
@@ -685,7 +787,7 @@ func file_protos_service_kfpanda_kfpanda_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_service_kfpanda_kfpanda_proto_rawDesc), len(file_protos_service_kfpanda_kfpanda_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   9,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
