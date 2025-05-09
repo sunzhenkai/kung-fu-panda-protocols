@@ -48,6 +48,7 @@ message ReplayRequest {
 message ReplayResponse {
   message ServiceResponse {
     bytes body = 1;
+    string message = 2;
   }
 
   int32 code = 1;
@@ -61,4 +62,12 @@ message ReplayResponse {
 service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
+}
+
+message HttpRequest {}
+message HttpResponse {}
+
+service HttpKfPandaService {
+  rpc Echo(HttpRequest) returns (HttpResponse) {}
+  rpc Replay(HttpRequest) returns (HttpResponse) {}
 }
