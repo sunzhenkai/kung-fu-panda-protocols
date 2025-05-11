@@ -71,14 +71,8 @@ service KfPandaService {
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
 }
 
-message HttpRequest {
-  int32 code = 1;
-  string message = 2;
-}
-message HttpResponse {
-  bool success = 1;
-  string message = 2;
-}
+message HttpRequest {}
+message HttpResponse {}
 
 service KfPandaDebugService {
   rpc Echo(HttpRequest) returns (HttpResponse) {}
