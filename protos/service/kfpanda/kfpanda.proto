@@ -73,9 +73,12 @@ service KfPandaService {
 
 message HttpRequest {}
 message HttpResponse {}
+message EchoMessage {
+  string message = 1;
+}
 
 service KfPandaDebugService {
-  rpc Echo(HttpRequest) returns (HttpResponse) {}
+  rpc Echo(EchoMessage) returns (EchoMessage) {}
   rpc Replay(HttpRequest) returns (HttpResponse) {}
 }
 
