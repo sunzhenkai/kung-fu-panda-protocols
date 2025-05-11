@@ -55,6 +55,7 @@ message ReplayResponse {
     bytes body = 1;
     string message = 2;
     RecordType type = 3;
+    string type_str = 4;
   }
 
   int32 code = 1;
