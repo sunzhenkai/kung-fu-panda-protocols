@@ -54,6 +54,7 @@ message ReplayResponse {
   message ServiceResponse {
     bytes body = 1;
     string message = 2;
+    RecordType type = 3;
   }
 
   int32 code = 1;
