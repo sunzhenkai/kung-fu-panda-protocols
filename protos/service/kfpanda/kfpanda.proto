@@ -71,11 +71,20 @@ service KfPandaService {
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
 }
 
-message HttpRequest {}
-message HttpResponse {}
+message HttpRequest {
+  int32 code = 1;
+  string message = 2;
+}
+message HttpResponse {
+  bool success = 1;
+  string message = 2;
+}
 
-service HttpKfPandaService {
+service KfPandaDebugService {
   rpc Echo(HttpRequest) returns (HttpResponse) {}
   rpc Replay(HttpRequest) returns (HttpResponse) {}
+}
+
+service KfPandaApiService {
   rpc Api(HttpRequest) returns (HttpResponse) {}
 }
