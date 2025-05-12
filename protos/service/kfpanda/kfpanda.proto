@@ -66,9 +66,22 @@ message ReplayResponse {
   repeated ServiceResponse responses = 102;
 }
 
+message SampleRequest {
+  string service = 1;
+  int32 count = 2;
+}
+
+message SampleResponse {
+  bool success = 1;
+  int32 code = 2;
+  string message = 3;
+  repeated bytes data = 4;
+}
+
 service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
+  rpc Sample(SampleRequest) returns (SampleResponse) {}
 }
 
 message HttpRequest {}
