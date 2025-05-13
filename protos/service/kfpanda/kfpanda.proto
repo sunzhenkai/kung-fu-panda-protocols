@@ -78,10 +78,47 @@ message SampleResponse {
   repeated bytes data = 4;
 }
 
+message LogResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+enum LogLevel {
+  LOG_LEVEL_UNSPECIFIED = 0;
+  LOG_LEVEL_INFO = 1;
+  LOG_LEVEL_WARN = 2;
+  LOG_LEVEL_ERROR = 3;
+  LOG_LEVEL_FATAL = 4;
+  LOG_LEVEL_DEBUG = 5;
+}
+
+message LogRequest {
+  string request_id = 1;
+  int64 timestamp_ms = 2;
+  string service = 3;
+  string log_name = 4;
+  LogLevel log_level = 5;
+  string message = 6;
+
+  string file = 50;
+  int32 line = 51;
+  string function = 52;
+
+  string host = 100;
+  string environment = 101;
+  string region = 102;
+  string cluster = 103;
+  string version = 104;
+
+  map<string, string> metadata = 200;
+  string extra = 201;
+}
+
 service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
   rpc Sample(SampleRequest) returns (SampleResponse) {}
+  rpc Log(LogRequest) returns (LogResponse) {}
 }
 
 message HttpRequest {}

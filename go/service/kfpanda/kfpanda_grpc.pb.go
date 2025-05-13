@@ -21,6 +21,8 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	KfPandaService_Record_FullMethodName = "/kfpanda.KfPandaService/Record"
 	KfPandaService_Replay_FullMethodName = "/kfpanda.KfPandaService/Replay"
+	KfPandaService_Sample_FullMethodName = "/kfpanda.KfPandaService/Sample"
+	KfPandaService_Log_FullMethodName    = "/kfpanda.KfPandaService/Log"
 )
 
 // KfPandaServiceClient is the client API for KfPandaService service.
@@ -29,6 +31,8 @@ const (
 type KfPandaServiceClient interface {
 	Record(ctx context.Context, in *RecordRequest, opts ...grpc.CallOption) (*RecordResponse, error)
 	Replay(ctx context.Context, in *ReplayRequest, opts ...grpc.CallOption) (*ReplayResponse, error)
+	Sample(ctx context.Context, in *SampleRequest, opts ...grpc.CallOption) (*SampleResponse, error)
+	Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*LogResponse, error)
 }
 
 type kfPandaServiceClient struct {
@@ -59,12 +63,34 @@ func (c *kfPandaServiceClient) Replay(ctx context.Context, in *ReplayRequest, op
 	return out, nil
 }
 
+func (c *kfPandaServiceClient) Sample(ctx context.Context, in *SampleRequest, opts ...grpc.CallOption) (*SampleResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SampleResponse)
+	err := c.cc.Invoke(ctx, KfPandaService_Sample_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *kfPandaServiceClient) Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*LogResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LogResponse)
+	err := c.cc.Invoke(ctx, KfPandaService_Log_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KfPandaServiceServer is the server API for KfPandaService service.
 // All implementations must embed UnimplementedKfPandaServiceServer
 // for forward compatibility.
 type KfPandaServiceServer interface {
 	Record(context.Context, *RecordRequest) (*RecordResponse, error)
 	Replay(context.Context, *ReplayRequest) (*ReplayResponse, error)
+	Sample(context.Context, *SampleRequest) (*SampleResponse, error)
+	Log(context.Context, *LogRequest) (*LogResponse, error)
 	mustEmbedUnimplementedKfPandaServiceServer()
 }
 
@@ -80,6 +106,12 @@ func (UnimplementedKfPandaServiceServer) Record(context.Context, *RecordRequest)
 }
 func (UnimplementedKfPandaServiceServer) Replay(context.Context, *ReplayRequest) (*ReplayResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Replay not implemented")
+}
+func (UnimplementedKfPandaServiceServer) Sample(context.Context, *SampleRequest) (*SampleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Sample not implemented")
+}
+func (UnimplementedKfPandaServiceServer) Log(context.Context, *LogRequest) (*LogResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Log not implemented")
 }
 func (UnimplementedKfPandaServiceServer) mustEmbedUnimplementedKfPandaServiceServer() {}
 func (UnimplementedKfPandaServiceServer) testEmbeddedByValue()                        {}
@@ -138,6 +170,42 @@ func _KfPandaService_Replay_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KfPandaService_Sample_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SampleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaServiceServer).Sample(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaService_Sample_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaServiceServer).Sample(ctx, req.(*SampleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KfPandaService_Log_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaServiceServer).Log(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaService_Log_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaServiceServer).Log(ctx, req.(*LogRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KfPandaService_ServiceDesc is the grpc.ServiceDesc for KfPandaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -153,183 +221,255 @@ var KfPandaService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "Replay",
 			Handler:    _KfPandaService_Replay_Handler,
 		},
+		{
+			MethodName: "Sample",
+			Handler:    _KfPandaService_Sample_Handler,
+		},
+		{
+			MethodName: "Log",
+			Handler:    _KfPandaService_Log_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "protos/service/kfpanda/kfpanda.proto",
 }
 
 const (
-	HttpKfPandaService_Echo_FullMethodName   = "/kfpanda.HttpKfPandaService/Echo"
-	HttpKfPandaService_Replay_FullMethodName = "/kfpanda.HttpKfPandaService/Replay"
-	HttpKfPandaService_Api_FullMethodName    = "/kfpanda.HttpKfPandaService/Api"
+	KfPandaDebugService_Echo_FullMethodName   = "/kfpanda.KfPandaDebugService/Echo"
+	KfPandaDebugService_Replay_FullMethodName = "/kfpanda.KfPandaDebugService/Replay"
 )
 
-// HttpKfPandaServiceClient is the client API for HttpKfPandaService service.
+// KfPandaDebugServiceClient is the client API for KfPandaDebugService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type HttpKfPandaServiceClient interface {
-	Echo(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
+type KfPandaDebugServiceClient interface {
+	Echo(ctx context.Context, in *EchoMessage, opts ...grpc.CallOption) (*EchoMessage, error)
 	Replay(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
-	Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
 }
 
-type httpKfPandaServiceClient struct {
+type kfPandaDebugServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewHttpKfPandaServiceClient(cc grpc.ClientConnInterface) HttpKfPandaServiceClient {
-	return &httpKfPandaServiceClient{cc}
+func NewKfPandaDebugServiceClient(cc grpc.ClientConnInterface) KfPandaDebugServiceClient {
+	return &kfPandaDebugServiceClient{cc}
 }
 
-func (c *httpKfPandaServiceClient) Echo(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
+func (c *kfPandaDebugServiceClient) Echo(ctx context.Context, in *EchoMessage, opts ...grpc.CallOption) (*EchoMessage, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HttpResponse)
-	err := c.cc.Invoke(ctx, HttpKfPandaService_Echo_FullMethodName, in, out, cOpts...)
+	out := new(EchoMessage)
+	err := c.cc.Invoke(ctx, KfPandaDebugService_Echo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *httpKfPandaServiceClient) Replay(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
+func (c *kfPandaDebugServiceClient) Replay(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HttpResponse)
-	err := c.cc.Invoke(ctx, HttpKfPandaService_Replay_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, KfPandaDebugService_Replay_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *httpKfPandaServiceClient) Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HttpResponse)
-	err := c.cc.Invoke(ctx, HttpKfPandaService_Api_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// HttpKfPandaServiceServer is the server API for HttpKfPandaService service.
-// All implementations must embed UnimplementedHttpKfPandaServiceServer
+// KfPandaDebugServiceServer is the server API for KfPandaDebugService service.
+// All implementations must embed UnimplementedKfPandaDebugServiceServer
 // for forward compatibility.
-type HttpKfPandaServiceServer interface {
-	Echo(context.Context, *HttpRequest) (*HttpResponse, error)
+type KfPandaDebugServiceServer interface {
+	Echo(context.Context, *EchoMessage) (*EchoMessage, error)
 	Replay(context.Context, *HttpRequest) (*HttpResponse, error)
-	Api(context.Context, *HttpRequest) (*HttpResponse, error)
-	mustEmbedUnimplementedHttpKfPandaServiceServer()
+	mustEmbedUnimplementedKfPandaDebugServiceServer()
 }
 
-// UnimplementedHttpKfPandaServiceServer must be embedded to have
+// UnimplementedKfPandaDebugServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedHttpKfPandaServiceServer struct{}
+type UnimplementedKfPandaDebugServiceServer struct{}
 
-func (UnimplementedHttpKfPandaServiceServer) Echo(context.Context, *HttpRequest) (*HttpResponse, error) {
+func (UnimplementedKfPandaDebugServiceServer) Echo(context.Context, *EchoMessage) (*EchoMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
 }
-func (UnimplementedHttpKfPandaServiceServer) Replay(context.Context, *HttpRequest) (*HttpResponse, error) {
+func (UnimplementedKfPandaDebugServiceServer) Replay(context.Context, *HttpRequest) (*HttpResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Replay not implemented")
 }
-func (UnimplementedHttpKfPandaServiceServer) Api(context.Context, *HttpRequest) (*HttpResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Api not implemented")
-}
-func (UnimplementedHttpKfPandaServiceServer) mustEmbedUnimplementedHttpKfPandaServiceServer() {}
-func (UnimplementedHttpKfPandaServiceServer) testEmbeddedByValue()                            {}
+func (UnimplementedKfPandaDebugServiceServer) mustEmbedUnimplementedKfPandaDebugServiceServer() {}
+func (UnimplementedKfPandaDebugServiceServer) testEmbeddedByValue()                             {}
 
-// UnsafeHttpKfPandaServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to HttpKfPandaServiceServer will
+// UnsafeKfPandaDebugServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to KfPandaDebugServiceServer will
 // result in compilation errors.
-type UnsafeHttpKfPandaServiceServer interface {
-	mustEmbedUnimplementedHttpKfPandaServiceServer()
+type UnsafeKfPandaDebugServiceServer interface {
+	mustEmbedUnimplementedKfPandaDebugServiceServer()
 }
 
-func RegisterHttpKfPandaServiceServer(s grpc.ServiceRegistrar, srv HttpKfPandaServiceServer) {
-	// If the following call pancis, it indicates UnimplementedHttpKfPandaServiceServer was
+func RegisterKfPandaDebugServiceServer(s grpc.ServiceRegistrar, srv KfPandaDebugServiceServer) {
+	// If the following call pancis, it indicates UnimplementedKfPandaDebugServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&HttpKfPandaService_ServiceDesc, srv)
+	s.RegisterService(&KfPandaDebugService_ServiceDesc, srv)
 }
 
-func _HttpKfPandaService_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _KfPandaDebugService_Echo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EchoMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaDebugServiceServer).Echo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaDebugService_Echo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaDebugServiceServer).Echo(ctx, req.(*EchoMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KfPandaDebugService_Replay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HttpRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(HttpKfPandaServiceServer).Echo(ctx, in)
+		return srv.(KfPandaDebugServiceServer).Replay(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: HttpKfPandaService_Echo_FullMethodName,
+		FullMethod: KfPandaDebugService_Replay_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HttpKfPandaServiceServer).Echo(ctx, req.(*HttpRequest))
+		return srv.(KfPandaDebugServiceServer).Replay(ctx, req.(*HttpRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _HttpKfPandaService_Replay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HttpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(HttpKfPandaServiceServer).Replay(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: HttpKfPandaService_Replay_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HttpKfPandaServiceServer).Replay(ctx, req.(*HttpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _HttpKfPandaService_Api_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HttpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(HttpKfPandaServiceServer).Api(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: HttpKfPandaService_Api_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HttpKfPandaServiceServer).Api(ctx, req.(*HttpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// HttpKfPandaService_ServiceDesc is the grpc.ServiceDesc for HttpKfPandaService service.
+// KfPandaDebugService_ServiceDesc is the grpc.ServiceDesc for KfPandaDebugService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var HttpKfPandaService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "kfpanda.HttpKfPandaService",
-	HandlerType: (*HttpKfPandaServiceServer)(nil),
+var KfPandaDebugService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "kfpanda.KfPandaDebugService",
+	HandlerType: (*KfPandaDebugServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Echo",
-			Handler:    _HttpKfPandaService_Echo_Handler,
+			Handler:    _KfPandaDebugService_Echo_Handler,
 		},
 		{
 			MethodName: "Replay",
-			Handler:    _HttpKfPandaService_Replay_Handler,
+			Handler:    _KfPandaDebugService_Replay_Handler,
 		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "protos/service/kfpanda/kfpanda.proto",
+}
+
+const (
+	KfPandaApiService_Api_FullMethodName = "/kfpanda.KfPandaApiService/Api"
+)
+
+// KfPandaApiServiceClient is the client API for KfPandaApiService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type KfPandaApiServiceClient interface {
+	Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error)
+}
+
+type kfPandaApiServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewKfPandaApiServiceClient(cc grpc.ClientConnInterface) KfPandaApiServiceClient {
+	return &kfPandaApiServiceClient{cc}
+}
+
+func (c *kfPandaApiServiceClient) Api(ctx context.Context, in *HttpRequest, opts ...grpc.CallOption) (*HttpResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HttpResponse)
+	err := c.cc.Invoke(ctx, KfPandaApiService_Api_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// KfPandaApiServiceServer is the server API for KfPandaApiService service.
+// All implementations must embed UnimplementedKfPandaApiServiceServer
+// for forward compatibility.
+type KfPandaApiServiceServer interface {
+	Api(context.Context, *HttpRequest) (*HttpResponse, error)
+	mustEmbedUnimplementedKfPandaApiServiceServer()
+}
+
+// UnimplementedKfPandaApiServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedKfPandaApiServiceServer struct{}
+
+func (UnimplementedKfPandaApiServiceServer) Api(context.Context, *HttpRequest) (*HttpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Api not implemented")
+}
+func (UnimplementedKfPandaApiServiceServer) mustEmbedUnimplementedKfPandaApiServiceServer() {}
+func (UnimplementedKfPandaApiServiceServer) testEmbeddedByValue()                           {}
+
+// UnsafeKfPandaApiServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to KfPandaApiServiceServer will
+// result in compilation errors.
+type UnsafeKfPandaApiServiceServer interface {
+	mustEmbedUnimplementedKfPandaApiServiceServer()
+}
+
+func RegisterKfPandaApiServiceServer(s grpc.ServiceRegistrar, srv KfPandaApiServiceServer) {
+	// If the following call pancis, it indicates UnimplementedKfPandaApiServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&KfPandaApiService_ServiceDesc, srv)
+}
+
+func _KfPandaApiService_Api_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HttpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaApiServiceServer).Api(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaApiService_Api_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaApiServiceServer).Api(ctx, req.(*HttpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// KfPandaApiService_ServiceDesc is the grpc.ServiceDesc for KfPandaApiService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var KfPandaApiService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "kfpanda.KfPandaApiService",
+	HandlerType: (*KfPandaApiServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Api",
-			Handler:    _HttpKfPandaService_Api_Handler,
+			Handler:    _KfPandaApiService_Api_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
