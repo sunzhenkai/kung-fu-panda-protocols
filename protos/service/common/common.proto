@@ -1,0 +1,25 @@
+syntax = "proto3";
+package common;
+
+option cc_generic_services = true;
+option go_package = "github.com/sunzhenkai/kung-fu-panda-protocols/go/service/common;common";
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServiceStatus {
+    SERVICE_STATUS_UNSPECIFIED = 0;
+    SERVICE_STATUS_OK = 1;
+    SERVICE_STATUS_UNINIT = 2;
+    SERVICE_STATUS_ERROR = 3;
+  }
+
+  ServiceStatus status = 1;
+  string message = 2;
+}
+
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+}
