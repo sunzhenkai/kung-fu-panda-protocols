@@ -8,6 +8,13 @@ message HealthCheckRequest {
   string service = 1;
 }
 
+message NodeState {
+  int32 start_timestamp_s = 1;
+  int32 cpu_cores = 100;
+  int32 cpu_cores_usage = 101;
+  int32 memory_usage = 102;
+}
+
 message HealthCheckResponse {
   enum ServiceStatus {
     SERVICE_STATUS_UNSPECIFIED = 0;
@@ -16,10 +23,11 @@ message HealthCheckResponse {
     SERVICE_STATUS_ERROR = 3;
   }
 
-  ServiceStatus status = 1;
+  ServiceStatus service_status = 1;
   string message = 2;
+  NodeState node_state = 3;
 }
 
-service Health {
+service HealthService {
   rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
 }
