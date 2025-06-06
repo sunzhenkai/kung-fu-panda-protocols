@@ -97,7 +97,7 @@ message ReplayResponseV2 {
 
   int32 success_count = 100;
   int32 failed_count = 101;
-  repeated ServiceResponse responses = 102;
+  repeated ServiceResponseComparable responses = 102;
 }
 
 message SampleRequest {
