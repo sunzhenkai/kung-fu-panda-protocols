@@ -50,14 +50,14 @@ message ReplayRequest {
   URI target = 100;
 }
 
-message ReplayResponse {
-  message ServiceResponse {
-    bytes body = 1;
-    string message = 2;
-    RecordType type = 3;
-    string type_str = 4;
-  }
+message ServiceResponse {
+  bytes body = 1;
+  string message = 2;
+  RecordType type = 3;
+  string type_str = 4;
+}
 
+message ReplayResponse {
   int32 code = 1;
   string message = 2;
 
@@ -80,12 +80,6 @@ message ReplayRequestV2 {
 }
 
 message ReplayResponseV2 {
-  message ServiceResponse {
-    bytes body = 1;
-    string message = 2;
-    RecordType type = 3;
-    string type_str = 4;
-  }
 
   message ServiceResponseComparable {
     ServiceResponse base = 1;
