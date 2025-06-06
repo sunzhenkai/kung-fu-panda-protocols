@@ -48,10 +48,38 @@ message ReplayRequest {
   string service = 2;
   Option option = 3;
   URI target = 100;
-  URI target_compare = 101;
 }
 
 message ReplayResponse {
+  message ServiceResponse {
+    bytes body = 1;
+    string message = 2;
+    RecordType type = 3;
+    string type_str = 4;
+  }
+
+  int32 code = 1;
+  string message = 2;
+
+  int32 success_count = 100;
+  int32 failed_count = 101;
+  repeated ServiceResponse responses = 102;
+}
+
+message ReplayRequestV2 {
+  message Option {
+    int32 count = 1;
+    int32 timeout_ms = 2;
+  }
+
+  string request_id = 1;
+  string service = 2;
+  Option option = 3;
+  URI target_base = 100;
+  URI target_compare = 101;
+}
+
+message ReplayResponseV2 {
   message ServiceResponse {
     bytes body = 1;
     string message = 2;
@@ -70,7 +98,6 @@ message ReplayResponse {
   int32 success_count = 100;
   int32 failed_count = 101;
   repeated ServiceResponse responses = 102;
-  repeated ServiceResponseComparable results = 103;
 }
 
 message SampleRequest {
@@ -124,6 +151,7 @@ message LogRequest {
 service KfPandaService {
   rpc Record(RecordRequest) returns (RecordResponse) {}
   rpc Replay(ReplayRequest) returns (ReplayResponse) {}
+  rpc ReplayV2(ReplayRequestV2) returns (ReplayResponseV2) {}
   rpc Sample(SampleRequest) returns (SampleResponse) {}
   rpc Log(LogRequest) returns (LogResponse) {}
 }

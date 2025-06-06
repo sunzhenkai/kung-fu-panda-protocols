@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	KfPandaService_Record_FullMethodName = "/kfpanda.KfPandaService/Record"
-	KfPandaService_Replay_FullMethodName = "/kfpanda.KfPandaService/Replay"
-	KfPandaService_Sample_FullMethodName = "/kfpanda.KfPandaService/Sample"
-	KfPandaService_Log_FullMethodName    = "/kfpanda.KfPandaService/Log"
+	KfPandaService_Record_FullMethodName   = "/kfpanda.KfPandaService/Record"
+	KfPandaService_Replay_FullMethodName   = "/kfpanda.KfPandaService/Replay"
+	KfPandaService_ReplayV2_FullMethodName = "/kfpanda.KfPandaService/ReplayV2"
+	KfPandaService_Sample_FullMethodName   = "/kfpanda.KfPandaService/Sample"
+	KfPandaService_Log_FullMethodName      = "/kfpanda.KfPandaService/Log"
 )
 
 // KfPandaServiceClient is the client API for KfPandaService service.
@@ -31,6 +32,7 @@ const (
 type KfPandaServiceClient interface {
 	Record(ctx context.Context, in *RecordRequest, opts ...grpc.CallOption) (*RecordResponse, error)
 	Replay(ctx context.Context, in *ReplayRequest, opts ...grpc.CallOption) (*ReplayResponse, error)
+	ReplayV2(ctx context.Context, in *ReplayRequestV2, opts ...grpc.CallOption) (*ReplayResponseV2, error)
 	Sample(ctx context.Context, in *SampleRequest, opts ...grpc.CallOption) (*SampleResponse, error)
 	Log(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*LogResponse, error)
 }
@@ -63,6 +65,16 @@ func (c *kfPandaServiceClient) Replay(ctx context.Context, in *ReplayRequest, op
 	return out, nil
 }
 
+func (c *kfPandaServiceClient) ReplayV2(ctx context.Context, in *ReplayRequestV2, opts ...grpc.CallOption) (*ReplayResponseV2, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReplayResponseV2)
+	err := c.cc.Invoke(ctx, KfPandaService_ReplayV2_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *kfPandaServiceClient) Sample(ctx context.Context, in *SampleRequest, opts ...grpc.CallOption) (*SampleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SampleResponse)
@@ -89,6 +101,7 @@ func (c *kfPandaServiceClient) Log(ctx context.Context, in *LogRequest, opts ...
 type KfPandaServiceServer interface {
 	Record(context.Context, *RecordRequest) (*RecordResponse, error)
 	Replay(context.Context, *ReplayRequest) (*ReplayResponse, error)
+	ReplayV2(context.Context, *ReplayRequestV2) (*ReplayResponseV2, error)
 	Sample(context.Context, *SampleRequest) (*SampleResponse, error)
 	Log(context.Context, *LogRequest) (*LogResponse, error)
 	mustEmbedUnimplementedKfPandaServiceServer()
@@ -106,6 +119,9 @@ func (UnimplementedKfPandaServiceServer) Record(context.Context, *RecordRequest)
 }
 func (UnimplementedKfPandaServiceServer) Replay(context.Context, *ReplayRequest) (*ReplayResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Replay not implemented")
+}
+func (UnimplementedKfPandaServiceServer) ReplayV2(context.Context, *ReplayRequestV2) (*ReplayResponseV2, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReplayV2 not implemented")
 }
 func (UnimplementedKfPandaServiceServer) Sample(context.Context, *SampleRequest) (*SampleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Sample not implemented")
@@ -170,6 +186,24 @@ func _KfPandaService_Replay_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KfPandaService_ReplayV2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReplayRequestV2)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KfPandaServiceServer).ReplayV2(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KfPandaService_ReplayV2_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KfPandaServiceServer).ReplayV2(ctx, req.(*ReplayRequestV2))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _KfPandaService_Sample_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SampleRequest)
 	if err := dec(in); err != nil {
@@ -220,6 +254,10 @@ var KfPandaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Replay",
 			Handler:    _KfPandaService_Replay_Handler,
+		},
+		{
+			MethodName: "ReplayV2",
+			Handler:    _KfPandaService_ReplayV2_Handler,
 		},
 		{
 			MethodName: "Sample",
