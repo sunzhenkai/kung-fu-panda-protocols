@@ -358,6 +358,7 @@ type ReplayRequest struct {
 	Service       string                 `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
 	Option        *ReplayRequest_Option  `protobuf:"bytes,3,opt,name=option,proto3" json:"option,omitempty"`
 	Target        *URI                   `protobuf:"bytes,100,opt,name=target,proto3" json:"target,omitempty"`
+	TargetCompare *URI                   `protobuf:"bytes,101,opt,name=target_compare,json=targetCompare,proto3" json:"target_compare,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -420,13 +421,21 @@ func (x *ReplayRequest) GetTarget() *URI {
 	return nil
 }
 
+func (x *ReplayRequest) GetTargetCompare() *URI {
+	if x != nil {
+		return x.TargetCompare
+	}
+	return nil
+}
+
 type ReplayResponse struct {
-	state         protoimpl.MessageState            `protogen:"open.v1"`
-	Code          int32                             `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
-	Message       string                            `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	SuccessCount  int32                             `protobuf:"varint,100,opt,name=success_count,json=successCount,proto3" json:"success_count,omitempty"`
-	FailedCount   int32                             `protobuf:"varint,101,opt,name=failed_count,json=failedCount,proto3" json:"failed_count,omitempty"`
-	Responses     []*ReplayResponse_ServiceResponse `protobuf:"bytes,102,rep,name=responses,proto3" json:"responses,omitempty"`
+	state         protoimpl.MessageState                      `protogen:"open.v1"`
+	Code          int32                                       `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message       string                                      `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	SuccessCount  int32                                       `protobuf:"varint,100,opt,name=success_count,json=successCount,proto3" json:"success_count,omitempty"`
+	FailedCount   int32                                       `protobuf:"varint,101,opt,name=failed_count,json=failedCount,proto3" json:"failed_count,omitempty"`
+	Responses     []*ReplayResponse_ServiceResponse           `protobuf:"bytes,102,rep,name=responses,proto3" json:"responses,omitempty"`
+	Results       []*ReplayResponse_ServiceResponseComparable `protobuf:"bytes,103,rep,name=results,proto3" json:"results,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -492,6 +501,13 @@ func (x *ReplayResponse) GetFailedCount() int32 {
 func (x *ReplayResponse) GetResponses() []*ReplayResponse_ServiceResponse {
 	if x != nil {
 		return x.Responses
+	}
+	return nil
+}
+
+func (x *ReplayResponse) GetResults() []*ReplayResponse_ServiceResponseComparable {
+	if x != nil {
+		return x.Results
 	}
 	return nil
 }
@@ -1068,6 +1084,58 @@ func (x *ReplayResponse_ServiceResponse) GetTypeStr() string {
 	return ""
 }
 
+type ReplayResponse_ServiceResponseComparable struct {
+	state         protoimpl.MessageState          `protogen:"open.v1"`
+	Base          *ReplayResponse_ServiceResponse `protobuf:"bytes,1,opt,name=base,proto3" json:"base,omitempty"`
+	Compare       *ReplayResponse_ServiceResponse `protobuf:"bytes,2,opt,name=compare,proto3" json:"compare,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReplayResponse_ServiceResponseComparable) Reset() {
+	*x = ReplayResponse_ServiceResponseComparable{}
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReplayResponse_ServiceResponseComparable) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReplayResponse_ServiceResponseComparable) ProtoMessage() {}
+
+func (x *ReplayResponse_ServiceResponseComparable) ProtoReflect() protoreflect.Message {
+	mi := &file_protos_service_kfpanda_kfpanda_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReplayResponse_ServiceResponseComparable.ProtoReflect.Descriptor instead.
+func (*ReplayResponse_ServiceResponseComparable) Descriptor() ([]byte, []int) {
+	return file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *ReplayResponse_ServiceResponseComparable) GetBase() *ReplayResponse_ServiceResponse {
+	if x != nil {
+		return x.Base
+	}
+	return nil
+}
+
+func (x *ReplayResponse_ServiceResponseComparable) GetCompare() *ReplayResponse_ServiceResponse {
+	if x != nil {
+		return x.Compare
+	}
+	return nil
+}
+
 var File_protos_service_kfpanda_kfpanda_proto protoreflect.FileDescriptor
 
 const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
@@ -1090,28 +1158,33 @@ const file_protos_service_kfpanda_kfpanda_proto_rawDesc = "" +
 	"\x04data\x18f \x01(\fR\x04data\">\n" +
 	"\x0eRecordResponse\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage\"\xe4\x01\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\x99\x02\n" +
 	"\rReplayRequest\x12\x1d\n" +
 	"\n" +
 	"request_id\x18\x01 \x01(\tR\trequestId\x12\x18\n" +
 	"\aservice\x18\x02 \x01(\tR\aservice\x125\n" +
 	"\x06option\x18\x03 \x01(\v2\x1d.kfpanda.ReplayRequest.OptionR\x06option\x12$\n" +
-	"\x06target\x18d \x01(\v2\f.kfpanda.URIR\x06target\x1a=\n" +
+	"\x06target\x18d \x01(\v2\f.kfpanda.URIR\x06target\x123\n" +
+	"\x0etarget_compare\x18e \x01(\v2\f.kfpanda.URIR\rtargetCompare\x1a=\n" +
 	"\x06Option\x12\x14\n" +
 	"\x05count\x18\x01 \x01(\x05R\x05count\x12\x1d\n" +
 	"\n" +
-	"timeout_ms\x18\x02 \x01(\x05R\ttimeoutMs\"\xd3\x02\n" +
+	"timeout_ms\x18\x02 \x01(\x05R\ttimeoutMs\"\xbe\x04\n" +
 	"\x0eReplayResponse\x12\x12\n" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12#\n" +
 	"\rsuccess_count\x18d \x01(\x05R\fsuccessCount\x12!\n" +
 	"\ffailed_count\x18e \x01(\x05R\vfailedCount\x12E\n" +
-	"\tresponses\x18f \x03(\v2'.kfpanda.ReplayResponse.ServiceResponseR\tresponses\x1a\x83\x01\n" +
+	"\tresponses\x18f \x03(\v2'.kfpanda.ReplayResponse.ServiceResponseR\tresponses\x12K\n" +
+	"\aresults\x18g \x03(\v21.kfpanda.ReplayResponse.ServiceResponseComparableR\aresults\x1a\x83\x01\n" +
 	"\x0fServiceResponse\x12\x12\n" +
 	"\x04body\x18\x01 \x01(\fR\x04body\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12'\n" +
 	"\x04type\x18\x03 \x01(\x0e2\x13.kfpanda.RecordTypeR\x04type\x12\x19\n" +
-	"\btype_str\x18\x04 \x01(\tR\atypeStr\"?\n" +
+	"\btype_str\x18\x04 \x01(\tR\atypeStr\x1a\x9b\x01\n" +
+	"\x19ServiceResponseComparable\x12;\n" +
+	"\x04base\x18\x01 \x01(\v2'.kfpanda.ReplayResponse.ServiceResponseR\x04base\x12A\n" +
+	"\acompare\x18\x02 \x01(\v2'.kfpanda.ReplayResponse.ServiceResponseR\acompare\"?\n" +
 	"\rSampleRequest\x12\x18\n" +
 	"\aservice\x18\x01 \x01(\tR\aservice\x12\x14\n" +
 	"\x05count\x18\x02 \x01(\x05R\x05count\"l\n" +
@@ -1185,54 +1258,59 @@ func file_protos_service_kfpanda_kfpanda_proto_rawDescGZIP() []byte {
 }
 
 var file_protos_service_kfpanda_kfpanda_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_protos_service_kfpanda_kfpanda_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_protos_service_kfpanda_kfpanda_proto_goTypes = []any{
-	(RecordType)(0),                        // 0: kfpanda.RecordType
-	(LogLevel)(0),                          // 1: kfpanda.LogLevel
-	(*URI)(nil),                            // 2: kfpanda.URI
-	(*RecordRequest)(nil),                  // 3: kfpanda.RecordRequest
-	(*RecordResponse)(nil),                 // 4: kfpanda.RecordResponse
-	(*ReplayRequest)(nil),                  // 5: kfpanda.ReplayRequest
-	(*ReplayResponse)(nil),                 // 6: kfpanda.ReplayResponse
-	(*SampleRequest)(nil),                  // 7: kfpanda.SampleRequest
-	(*SampleResponse)(nil),                 // 8: kfpanda.SampleResponse
-	(*LogResponse)(nil),                    // 9: kfpanda.LogResponse
-	(*LogRequest)(nil),                     // 10: kfpanda.LogRequest
-	(*HttpRequest)(nil),                    // 11: kfpanda.HttpRequest
-	(*HttpResponse)(nil),                   // 12: kfpanda.HttpResponse
-	(*EchoMessage)(nil),                    // 13: kfpanda.EchoMessage
-	(*ReplayRequest_Option)(nil),           // 14: kfpanda.ReplayRequest.Option
-	(*ReplayResponse_ServiceResponse)(nil), // 15: kfpanda.ReplayResponse.ServiceResponse
-	nil,                                    // 16: kfpanda.LogRequest.MetadataEntry
+	(RecordType)(0),                                  // 0: kfpanda.RecordType
+	(LogLevel)(0),                                    // 1: kfpanda.LogLevel
+	(*URI)(nil),                                      // 2: kfpanda.URI
+	(*RecordRequest)(nil),                            // 3: kfpanda.RecordRequest
+	(*RecordResponse)(nil),                           // 4: kfpanda.RecordResponse
+	(*ReplayRequest)(nil),                            // 5: kfpanda.ReplayRequest
+	(*ReplayResponse)(nil),                           // 6: kfpanda.ReplayResponse
+	(*SampleRequest)(nil),                            // 7: kfpanda.SampleRequest
+	(*SampleResponse)(nil),                           // 8: kfpanda.SampleResponse
+	(*LogResponse)(nil),                              // 9: kfpanda.LogResponse
+	(*LogRequest)(nil),                               // 10: kfpanda.LogRequest
+	(*HttpRequest)(nil),                              // 11: kfpanda.HttpRequest
+	(*HttpResponse)(nil),                             // 12: kfpanda.HttpResponse
+	(*EchoMessage)(nil),                              // 13: kfpanda.EchoMessage
+	(*ReplayRequest_Option)(nil),                     // 14: kfpanda.ReplayRequest.Option
+	(*ReplayResponse_ServiceResponse)(nil),           // 15: kfpanda.ReplayResponse.ServiceResponse
+	(*ReplayResponse_ServiceResponseComparable)(nil), // 16: kfpanda.ReplayResponse.ServiceResponseComparable
+	nil, // 17: kfpanda.LogRequest.MetadataEntry
 }
 var file_protos_service_kfpanda_kfpanda_proto_depIdxs = []int32{
 	2,  // 0: kfpanda.RecordRequest.uri:type_name -> kfpanda.URI
 	0,  // 1: kfpanda.RecordRequest.type:type_name -> kfpanda.RecordType
 	14, // 2: kfpanda.ReplayRequest.option:type_name -> kfpanda.ReplayRequest.Option
 	2,  // 3: kfpanda.ReplayRequest.target:type_name -> kfpanda.URI
-	15, // 4: kfpanda.ReplayResponse.responses:type_name -> kfpanda.ReplayResponse.ServiceResponse
-	1,  // 5: kfpanda.LogRequest.log_level:type_name -> kfpanda.LogLevel
-	16, // 6: kfpanda.LogRequest.metadata:type_name -> kfpanda.LogRequest.MetadataEntry
-	0,  // 7: kfpanda.ReplayResponse.ServiceResponse.type:type_name -> kfpanda.RecordType
-	3,  // 8: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
-	5,  // 9: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
-	7,  // 10: kfpanda.KfPandaService.Sample:input_type -> kfpanda.SampleRequest
-	10, // 11: kfpanda.KfPandaService.Log:input_type -> kfpanda.LogRequest
-	13, // 12: kfpanda.KfPandaDebugService.Echo:input_type -> kfpanda.EchoMessage
-	11, // 13: kfpanda.KfPandaDebugService.Replay:input_type -> kfpanda.HttpRequest
-	11, // 14: kfpanda.KfPandaApiService.Api:input_type -> kfpanda.HttpRequest
-	4,  // 15: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
-	6,  // 16: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
-	8,  // 17: kfpanda.KfPandaService.Sample:output_type -> kfpanda.SampleResponse
-	9,  // 18: kfpanda.KfPandaService.Log:output_type -> kfpanda.LogResponse
-	13, // 19: kfpanda.KfPandaDebugService.Echo:output_type -> kfpanda.EchoMessage
-	12, // 20: kfpanda.KfPandaDebugService.Replay:output_type -> kfpanda.HttpResponse
-	12, // 21: kfpanda.KfPandaApiService.Api:output_type -> kfpanda.HttpResponse
-	15, // [15:22] is the sub-list for method output_type
-	8,  // [8:15] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	2,  // 4: kfpanda.ReplayRequest.target_compare:type_name -> kfpanda.URI
+	15, // 5: kfpanda.ReplayResponse.responses:type_name -> kfpanda.ReplayResponse.ServiceResponse
+	16, // 6: kfpanda.ReplayResponse.results:type_name -> kfpanda.ReplayResponse.ServiceResponseComparable
+	1,  // 7: kfpanda.LogRequest.log_level:type_name -> kfpanda.LogLevel
+	17, // 8: kfpanda.LogRequest.metadata:type_name -> kfpanda.LogRequest.MetadataEntry
+	0,  // 9: kfpanda.ReplayResponse.ServiceResponse.type:type_name -> kfpanda.RecordType
+	15, // 10: kfpanda.ReplayResponse.ServiceResponseComparable.base:type_name -> kfpanda.ReplayResponse.ServiceResponse
+	15, // 11: kfpanda.ReplayResponse.ServiceResponseComparable.compare:type_name -> kfpanda.ReplayResponse.ServiceResponse
+	3,  // 12: kfpanda.KfPandaService.Record:input_type -> kfpanda.RecordRequest
+	5,  // 13: kfpanda.KfPandaService.Replay:input_type -> kfpanda.ReplayRequest
+	7,  // 14: kfpanda.KfPandaService.Sample:input_type -> kfpanda.SampleRequest
+	10, // 15: kfpanda.KfPandaService.Log:input_type -> kfpanda.LogRequest
+	13, // 16: kfpanda.KfPandaDebugService.Echo:input_type -> kfpanda.EchoMessage
+	11, // 17: kfpanda.KfPandaDebugService.Replay:input_type -> kfpanda.HttpRequest
+	11, // 18: kfpanda.KfPandaApiService.Api:input_type -> kfpanda.HttpRequest
+	4,  // 19: kfpanda.KfPandaService.Record:output_type -> kfpanda.RecordResponse
+	6,  // 20: kfpanda.KfPandaService.Replay:output_type -> kfpanda.ReplayResponse
+	8,  // 21: kfpanda.KfPandaService.Sample:output_type -> kfpanda.SampleResponse
+	9,  // 22: kfpanda.KfPandaService.Log:output_type -> kfpanda.LogResponse
+	13, // 23: kfpanda.KfPandaDebugService.Echo:output_type -> kfpanda.EchoMessage
+	12, // 24: kfpanda.KfPandaDebugService.Replay:output_type -> kfpanda.HttpResponse
+	12, // 25: kfpanda.KfPandaApiService.Api:output_type -> kfpanda.HttpResponse
+	19, // [19:26] is the sub-list for method output_type
+	12, // [12:19] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_protos_service_kfpanda_kfpanda_proto_init() }
@@ -1246,7 +1324,7 @@ func file_protos_service_kfpanda_kfpanda_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_protos_service_kfpanda_kfpanda_proto_rawDesc), len(file_protos_service_kfpanda_kfpanda_proto_rawDesc)),
 			NumEnums:      2,
-			NumMessages:   15,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   3,
 		},
